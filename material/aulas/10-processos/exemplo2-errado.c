@@ -1,21 +1,21 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/wait.h>
 
 int main() {
-    int rodando = 1;
     pid_t filho;
 
     filho = fork();
 
     if (filho == 0) {
         printf("Acabei filho\n");
-        rodando = 0;
-    } else {
-        while (rodando) {
-            printf("Esperando o filho acabar!\n");
-            sleep(1);
-        }
+        exit(0);
     }
+
+    wait(NULL);
+    printf("Acabou!\n");
+
     return 0;
 }
