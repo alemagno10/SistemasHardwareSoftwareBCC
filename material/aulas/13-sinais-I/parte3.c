@@ -5,22 +5,25 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <signal.h>
 
-// gcc parte1.c -o parte1
+// gcc parte3.c -o parte3
 
 int main() {
     pid_t filho;
 
     filho = fork();
     if (filho == 0) {
-        int i = 1/0;
-        printf("Divisão por zero!\n");
+        printf("Meu pid: %d\n", getpid());
+        while(1);
         exit(0);
     }
 
+    sleep(5);
+    kill(filho, SIGKILL);
+
     int status;
-    pid_t child = wait(&status);
-    printf("Meu pid: %d\n", child);
+    wait(&status);
     printf("Exited: %d, Signaled: %d, TERMSIG: %d Error: %s\n", 
         WIFEXITED(status),
         WIFSIGNALED(status),
