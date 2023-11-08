@@ -25,6 +25,7 @@ int main(int argc, char *argv[]){
 
         if(child == 0){
             int response = execvp(siscoinArgs[0], siscoinArgs);
+            printf("%d\n", response);
             if(response == -1){
                 printf("erro ao executar siscoin\n");
                 perror("execvp");
